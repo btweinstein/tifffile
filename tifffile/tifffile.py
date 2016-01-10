@@ -1575,7 +1575,8 @@ class TiffFile(object):
     def _ome_series(self):
         """Return image series in OME-TIFF file(s)."""
         omexml = self.pages[0].tags['image_description'].value
-        omexml = omexml.decode('UTF-8', 'ignore')
+        #omexml = omexml.decode('UTF-8', 'ignore')
+
         root = etree.fromstring(omexml)
         uuid = root.attrib.get('UUID', None)
         self._files = {uuid: self}
@@ -2346,6 +2347,9 @@ class TiffPage(object):
                     result[index:index+size] = strip[:size]
                     del strip
                     index += size
+
+        print(result.shape)
+        print(self._shape)
 
         result.shape = self._shape
 
